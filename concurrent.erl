@@ -1,7 +1,9 @@
 -module(concurrent).
 -export([start/0]).
 start() ->
-  spawn(fun() -> echo(1) end).
+  PID = spawn(fun() -> echo(1) end),
+  register(echo_pid, PID),
+  PID.
 
 echo(NoMsgCnt) ->
   receive
